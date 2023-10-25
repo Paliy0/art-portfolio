@@ -1,0 +1,183 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { fetchNotionData } from '../utils/getNotionItems.js';
+
+const items = await fetchNotionData();
+---
+
+<Layout title="Your Title Here">
+    <div class="container"> 
+      <main class="main-content">
+          <div class="header-section">
+              <h2 class="header-title">
+                  Your Gallery
+              </h2>
+              <p class="header-description">
+                  A collection of images and descriptions from Notion
+              </p>
+          </div>
+  
+        <div class="items-container">
+          <div class="grid">
+            {items && items.map(item => {
+              const pageItem = item as { properties: any };
+              
+              const title = pageItem.properties?.Title?.title[0]?.plain_text || "";
+              const imageUrl = pageItem.properties?.image?.rich_text[0]?.href || "";
+              const description = pageItem.properties?.description?.multi_select[0]?.name || "";
+              if (title && imageUrl) {
+                  return (
+                    <div class="item-card">
+                        <img src={imageUrl} alt={title} class="item-image" />
+                        <div class="overlay">
+                            <h3 class="item-title">{title}</h3>
+                            <p class="item-description">{description}</p>
+                        </div>
+                    </div>
+                  );
+              }
+            })}
+          </div>
+        </div>
+      </main>
+    </div>
+  </Layout>
+
+<style>
+    .container {
+        padding: 1rem 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #F1F5F9;
+    }
+
+    .main-content {
+        margin-bottom: auto;
+    }
+
+    .header-section {
+        margin: 2rem 0;
+    }
+
+    .header-title {
+        color: #2D3748;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+
+    .header-description {
+        max-width: 60vw;
+        color: #718096;
+        font-size: 1.125rem;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .items-container {
+        max-width: 90vw;
+        padding: 1rem 2rem;
+        margin: 0 auto;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+        .grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.5rem;
+        }
+    }
+
+    .item-card {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.3s;
+    }
+
+    .item-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .item-image {
+        width: 100%;
+        max-height: 14rem;
+        object-fit: cover;
+        transition: transform 0.2s;
+        
+    }
+
+    .item-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+
+    .item-description {
+        color: #718096;
+    }
+    
+    .item-card {
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        transition: padding 0.3s;
+        
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .item-card:hover .overlay {
+        opacity: 1;
+    }
+
+    .item-title, .item-description {
+        display: none;
+    }
+
+    .item-card:hover .item-title, .item-card:hover .item-description {
+        display: block;
+        color: white;
+        text-align: center;
+    }
+
+    .item-card:hover .item-image {
+        transform: scale(1.1); /* Zoom in a bit */
+    }
+
+    .item-card:hover {
+        padding: 0; /* Remove the border (padding) completely on hover */
+    }
+
+    .item-description {
+        max-width: 80%;
+    }
+</style>

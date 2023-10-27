@@ -1,8 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { fetchNotionData } from '../utils/getNotionItems.js';
-import Card from '../components/Card.astro'
-const items = await fetchNotionData();
+import Card from '../components/Card.astro';
+
+interface NotionPageItem {
+    properties: {
+        Order?: { number: number };
+        Title?: { title: { plain_text: string }[] };
+        image?: { rich_text: { href: string }[] };
+        description?: { multi_select: { name: string }[] };
+    };
+}
+
+const fetchedItems = await fetchNotionData();
+const items = fetchedItems as NotionPageItem[];
 ---
 
 <Layout title="Home">
@@ -18,20 +29,23 @@ const items = await fetchNotionData();
           </div>
   
         <div class="items-container">
-          <div class="grid">
-            {items && items.map(item => {
-              const pageItem = item as { properties: any };
-              
-              const title = pageItem.properties?.Title?.title[0]?.plain_text || "";
-              const imageUrl = pageItem.properties?.image?.rich_text[0]?.href || "";
-              const description = pageItem.properties?.description?.multi_select[0]?.name || "";
-              if (title && imageUrl) {
-                return (
-                    <Card title={title} description={description} imgUrl={imageUrl} />
-                );
-            }
-            })}
-          </div>
+            <div class="grid">
+                {
+                items.sort((a, b) => a.properties.Order.number - b.properties.Order.number)
+                .map(item => {
+                  const pageItem = item as { properties: any };
+                  
+                  const title = pageItem.properties?.Title?.title[0]?.plain_text || "";
+                  const imageUrl = pageItem.properties?.image?.rich_text[0]?.href || "";
+                  const description = pageItem.properties?.description?.multi_select[0]?.name || "";
+                  if (title && imageUrl) {
+                    return (
+                      <Card title={title} description={description} imgUrl={imageUrl} />
+                    );
+                  }
+                })
+              }
+            </div>
         </div>
       </main>
     </div>

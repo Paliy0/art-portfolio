@@ -1,12 +1,14 @@
 import { Client } from '@notionhq/client';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const notion = new Client({ auth: 'secret_1W3BBdh1ghvp9HclJZWXBz1cBNhj37ZIjb7AC3Paifa' });
+const notionApiKey = process.env.NOTION_API_KEY;
+const notionDatabaseId = process.env.NOTION_DATABASE_ID;
+const notion = new Client({ auth: notionApiKey });
 
 export async function fetchNotionData() {
-  const databaseId = 'eec8f4dfd43d4700a6b6b3fd61fc05cf';
-
   try {
-    const response = await notion.databases.query({ database_id: databaseId });
+    const response = await notion.databases.query({ database_id: notionDatabaseId });
     return response.results;
   } catch (error) {
     console.error('Error querying Notion database:', error);

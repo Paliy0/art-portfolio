@@ -1,14 +1,22 @@
----
----
-
 <nav class="navbar">
-    <ul class="nav-list">
+    <button class="hamburger" id="hamburger-btn">☰</button>
+    <ul class="nav-list" id="nav-list">
         <li><a href="/" class="nav-link">Home</a></li>
         <li><a href="/work" class="nav-link">Work</a></li>
         <li><a href="/about" class="nav-link">About</a></li>
         <li><a href="/contact" class="nav-link">Contact</a></li>
     </ul>
 </nav>
+
+<script type="module">
+  // Client-side logic using direct DOM references
+  const hamburger = document.getElementById('hamburger-btn');
+  const navList = document.getElementById('nav-list');
+
+  hamburger.addEventListener('click', function() {
+      navList.classList.toggle('active');
+  });
+</script>
 
 <style>
     .navbar {
@@ -17,21 +25,44 @@
     }
 
     .nav-list {
-        display: flex;
+        display: none; /* Hide by default for mobile */
         justify-content: center;
         list-style: none;
         padding: 0;
         margin: 0;
     }
 
+    .nav-list.active { /* Show when hamburger is clicked */
+        display: block;
+    }
+
     .nav-link {
         color: white;
         text-decoration: none;
         padding: 0.5rem 1rem;
+        display: block;
         transition: background-color 0.3s;
     }
 
     .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .hamburger {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: white;
+    }
+
+    @media (min-width: 768px) { /* Adjust as needed */
+        .nav-list {
+            display: flex; /* Show nav items in a row */
+        }
+
+        .hamburger {
+            display: none; /* Hide hamburger icon */
+        }
     }
 </style>

@@ -91,22 +91,33 @@ const items = fetchedItems as NotionPageItem[];
         margin: 0 auto;
     }
 
+    /* Default styles for mobile */
     .grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;  /* One column for mobile */
         gap: 1.5rem;
     }
 
+    /* Medium devices (e.g., tablets) */
     @media (min-width: 640px) {
         .grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);  /* Two columns for tablets */
         }
     }
 
+    /* Large devices (e.g., small laptops, large tablets) */
     @media (min-width: 1024px) {
         .grid {
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);  /* Three columns for larger devices */
             gap: 2.5rem;
         }
     }
+
+    /* Extra large devices (e.g., large laptops, desktops) */
+    @media (min-width: 1280px) {
+        .grid {
+            grid-template-columns: repeat(4, 1fr);  /* Four columns for extra large screens */
+        }
+    }
+
 </style>

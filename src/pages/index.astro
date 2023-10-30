@@ -18,16 +18,16 @@ const featuredItem = items.find((item) => item.properties.Order?.number === 0);
 const otherItems = items.filter((item) => item.properties.Order?.number !== 0);
 ---
 
-<Layout title="Home">
+<Layout title="Home" backgroundColor="#333">
   <div class="container">
     <main class="main-content">
       <div class="logo-section">
         <img src="../../assets/img/logo.png" alt="Your Gallery Logo" />
       </div>
       <div class="header-section">
-        <h2 class="header-title">Your Gallery</h2>
+        <h2 class="header-title">Featured Item</h2>
         <p class="header-description">
-          A collection of images and descriptions from Notion
+          description blablabla
         </p>
       </div>
       <!-- Featured Item Section -->
@@ -36,6 +36,13 @@ const otherItems = items.filter((item) => item.properties.Order?.number !== 0);
           src={featuredItem.properties?.image?.rich_text[0]?.href || ""}
           alt={featuredItem.properties?.Title?.title[0]?.plain_text || ""}
         />
+      </div>
+
+      <div class="header-section">
+        <h2 class="header-title">Gallery</h2>
+        <p class="header-description">
+          description blablabla
+        </p>
       </div>
 
       <div class="items-container">
@@ -74,7 +81,6 @@ const otherItems = items.filter((item) => item.properties.Order?.number !== 0);
 <style>
   .container {
     padding: 1rem 2rem;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -87,6 +93,18 @@ const otherItems = items.filter((item) => item.properties.Order?.number !== 0);
   .header-section {
     margin: 2rem 0;
   }
+
+  .logo-section {
+    display: flex;          /* Enable flexbox */
+    align-items: center;    /* Vertical alignment to the center */
+    justify-content: center;/* Horizontal alignment to the center */
+    width: 90vw;
+    height: 90vh;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    background-color: aqua;
+    }
+
 
   .header-title {
     color: #dde0e4;
@@ -102,6 +120,17 @@ const otherItems = items.filter((item) => item.properties.Order?.number !== 0);
     font-size: 1.125rem;
     text-align: center;
     margin: 0 auto;
+  }
+
+  .featured-item {
+    align-items: center;
+    max-width: 90vw;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+  }
+
+  .featured-item img{
+    width: 90vw;
   }
 
   .items-container {

@@ -1,0 +1,109 @@
+---
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="row">
+      <div class="col">
+        <h4>Follow Me</h4>
+        <div class="social-icons">
+          <a href="#"
+            ><img src="/path-to-your-images/instagram.svg" alt="Instagram" /></a
+          >
+          <a href="#"
+            ><img src="/path-to-your-images/twitter.svg" alt="Twitter" /></a
+          >
+          <a href="#"
+            ><img src="/path-to-your-images/facebook.svg" alt="Facebook" /></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h4>Contact Info</h4>
+        <ul>
+          <li>Email: your-email@example.com</li>
+          <li>Phone: +123-456-7890</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/work">Work</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <p>&copy; 2023 Your Company Name</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col {
+    margin: 1rem 0;
+  }
+
+  .col h4 {
+    margin-bottom: 1rem;
+  }
+
+  .social-icons a {
+    margin: 0 0.5rem;
+  }
+
+  .social-icons img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
+  }
+
+  .social-icons img:hover {
+    transform: scale(1.1);
+  }
+
+  .col ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .col ul li {
+    margin: 0.5rem 0;
+  }
+
+  .col ul li a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .col ul li a:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 768px) {
+    .footer-content {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  }
+</style>

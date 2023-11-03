@@ -1,20 +1,40 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { fetchNotionData } from "../utils/getNotionItems.js";
+
+interface NotionPageItem {
+  properties: {
+    Order?: { number: number };
+    Title?: { title: { plain_text: string }[] };
+    image?: { rich_text: { href: string }[] };
+  };
+}
+const fetchedItems = await fetchNotionData();
+const items = fetchedItems as NotionPageItem[];
+const featuredItem = items.find((item) => item.properties.Order?.number === 1);
 ---
 
 <Layout title="About Us" backgroundColor="#fff">
   <section class="about-section">
-    <h1>About Us</h1>
+    <div class="about-header">
+      <h1>About Me</h1>
+    </div>
 
     <div class="about-content">
       <img
-        src="/path-to-your-images/about-image.jpg"
-        alt="About Image"
         class="about-image"
+        src={featuredItem.properties?.image?.rich_text[0]?.href || ""}
+        alt={featuredItem.properties?.Title?.title[0]?.plain_text || "About Image"}
       />
 
       <div class="about-text">
-        <h2>Our Story</h2>
+        <h2>Intro</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nisi sed dui egestas auctor. Curabitur ut libero neque. Vivamus vel
+          metus finibus, semper justo at, facilisis felis. Fusce auctor nisi
+          vitae tellus semper viverra.
+        </p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
           nisi sed dui egestas auctor. Curabitur ut libero neque. Vivamus vel
@@ -22,8 +42,12 @@ import Layout from "../layouts/Layout.astro";
           vitae tellus semper viverra.
         </p>
 
-        <h2>Our Mission</h2>
+        <h2>2nd Title</h2>
         <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet
+          nisi sed dui egestas auctor. Curabitur ut libero neque. Vivamus vel
+          metus finibus, semper justo at, facilisis felis. Fusce auctor nisi
+          vitae tellus semper viverra.
           Aliquam erat volutpat. Sed ut fermentum sapien, in accumsan sem.
           Vestibulum in mauris quis justo malesuada aliquet. Sed sit amet
           vestibulum lorem, vitae pulvinar dui.
@@ -33,6 +57,7 @@ import Layout from "../layouts/Layout.astro";
   </section>
 </Layout>
 
+
 <style>
   .about-section {
     padding: 2rem;
@@ -40,11 +65,16 @@ import Layout from "../layouts/Layout.astro";
     margin: auto;
   }
 
+  .about-header {
+    text-align: center; /* Center the h1 element */
+    margin-top: 0; /* Remove default top margin for h1 */
+  }
+
   .about-content {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
-    align-items: center;
+    align-items: flex-start; /* Align items at the top */
   }
 
   .about-image {
@@ -63,4 +93,5 @@ import Layout from "../layouts/Layout.astro";
       flex-direction: column;
     }
   }
+
 </style>

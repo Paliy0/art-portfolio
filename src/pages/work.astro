@@ -43,24 +43,14 @@ const items = fetchedItems as NotionPageItem[];
                   pageItem.properties?.image?.rich_text[0]?.href || "";
                 const description =
                   pageItem.properties?.description?.multi_select[0]?.name || "";
-
-                // console.log(
-                //   "Order number:",
-                //   pageItem.properties?.Order?.number
-                // );
-
-                // Skip the item with order number 0
-
-                if (pageItem.properties?.Order?.number === 0) {
-                  return null;
-                }
-
+                const orderNumber = pageItem.properties?.Order?.number || 0;
                 if (title && imageUrl) {
                   return (
                     <Card
                       title={title}
                       description={description}
                       imgUrl={imageUrl}
+                      orderNumber={orderNumber}
                     />
                   );
                 }

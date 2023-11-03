@@ -1,98 +1,104 @@
 ---
 interface Props {
-	title: string;
-	description: string;
-	imgUrl: string;
+  title: string;
+  description: string;
+  imgUrl: string;
+  orderNumber: number;
 }
 
-const { imgUrl, title, description } = Astro.props;
+const { imgUrl, title, description, orderNumber } = Astro.props;
+
 ---
 
-<div class="item-card">
-	<img src={imgUrl} alt={title} class="item-image" />
-	<div class="overlay">
-		<h3 class="item-title">{title}</h3>
-		<p class="item-description">{description}</p>
-	</div>
-</div>
+<a href={`/items/${orderNumber}`}>
+  <div class="item-card">
+    <img src={imgUrl} alt={title} class="item-image" />
+    <div class="overlay">
+      <h3 class="item-title">{title}</h3>
+      <p class="item-description">{description}</p>
+    </div>
+  </div>
+</a>
 
 <style>
-	.item-card {
-        background-color: transparent;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        transition: box-shadow 0.3s;
-    }
+  .item-card {
+    background-color: transparent;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.3s;
+  }
 
-    .item-card:hover {
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
+  .item-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
 
-    .item-image {
-        width: 100%;
-        height: 14rem;
-        object-fit: cover;
-        transition: transform 0.2s;
-        
-    }
+  .item-image {
+    width: 100%;
+    height: 14rem;
+    object-fit: cover;
+    transition: transform 0.2s;
+  }
 
-    .item-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        margin-top: 1rem;
-    }
+  .item-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 1rem;
+  }
 
-    .item-description {
-        color: #718096;
-    }
-    
-    .item-card {
-        position: relative;
-        overflow: hidden;
-        padding: 0;
-        transition: padding 0.3s;
-        
-    }
+  .item-description {
+    color: #718096;
+  }
 
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s;
-    }
+  .item-card {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    transition: padding 0.3s;
+  }
 
-    .item-card:hover .overlay {
-        opacity: 1;
-    }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 
-    .item-title, .item-description {
-        display: none;
-    }
+  .item-card:hover .overlay {
+    opacity: 1;
+  }
 
-    .item-card:hover .item-title, .item-card:hover .item-description {
-        display: block;
-        color: white;
-        text-align: center;
-    }
+  .item-title,
+  .item-description {
+    display: none;
+  }
 
-    .item-card:hover .item-image {
-        transform: scale(1.1); /* Zoom in a bit */
-    }
+  .item-card:hover .item-title,
+  .item-card:hover .item-description {
+    display: block;
+    color: white;
+    text-align: center;
+  }
 
-    .item-card:hover {
-        padding: 0; /* Remove the border (padding) completely on hover */
-    }
+  .item-card:hover .item-image {
+    transform: scale(1.1); /* Zoom in a bit */
+  }
 
-    .item-description {
-        max-width: 80%;
-    }
+  .item-card:hover {
+    padding: 0; /* Remove the border (padding) completely on hover */
+  }
+
+  .item-description {
+    max-width: 80%;
+  }
 </style>

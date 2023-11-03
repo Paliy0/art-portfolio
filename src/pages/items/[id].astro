@@ -1,0 +1,22 @@
+---
+import { fetchNotionData } from '../../utils/getNotionItems.js';
+import DetailView from '../../components/DetailView.astro';
+
+const { id } = Astro.params;
+const fetchedItems = await fetchNotionData();
+const item = fetchedItems.find(item => item.properties.Order?.number === parseInt(id));
+
+export async function getStaticPaths() {
+  const fetchedItems = await fetchNotionData();
+  const paths = fetchedItems.map(item => ({
+    params: { id: item.properties.Order.number.toString() },
+  }));
+  return paths;
+}
+---
+
+<DetailView
+  title={item?.properties?.Title?.title[0]?.plain_text || ""}
+  description={item?.properties?.description?.multi_select[0]?.name || ""}
+  imageUrl={item?.properties?.image?.rich_text[0]?.href || ""}
+/>
